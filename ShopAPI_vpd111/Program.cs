@@ -14,6 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<Shop111DbContext>(opts => opts.UseSqlServer(connStr));
 // configure custom services
 builder.Services.AddScoped<IProductsService, ProductsService>();
+// configure AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

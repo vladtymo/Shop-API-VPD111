@@ -1,4 +1,5 @@
-﻿using BusinessLogic.ApiModels;
+﻿using AutoMapper;
+using BusinessLogic.ApiModels;
 using BusinessLogic.Interfaces;
 using DataAccess.Data;
 using DataAccess.Data.Entities;
@@ -13,26 +14,28 @@ namespace BusinessLogic.Services
     public class ProductsService : IProductsService
     {
         private readonly Shop111DbContext ctx;
+        private readonly IMapper mapper;
 
-        public ProductsService(Shop111DbContext ctx)
+        public ProductsService(Shop111DbContext ctx, IMapper mapper)
         {
             this.ctx = ctx;
+            this.mapper = mapper;
         }
 
         public void Create(CreateProductModel model)
         {
-            var entity = new Product()
-            {
-                Name = model.Name,
-                CategoryId = model.CategoryId,
-                Description = model.Description,
-                Discount = model.Discount,
-                ImageUrl = model.ImageUrl,
-                Price = model.Price,
-                InStock = model.InStock
-            };
+            //var entity = new Product()
+            //{
+            //    Name = model.Name,
+            //    CategoryId = model.CategoryId,
+            //    Description = model.Description,
+            //    Discount = model.Discount,
+            //    ImageUrl = model.ImageUrl,
+            //    Price = model.Price,
+            //    InStock = model.InStock
+            //};
 
-            ctx.Products.Add(entity);
+            ctx.Products.Add(mapper.Map<Product>(model));
             ctx.SaveChanges();
         }
 
@@ -48,19 +51,19 @@ namespace BusinessLogic.Services
 
         public void Edit(EditProductModel model)
         {
-            var entity = new Product()
-            {
-                Id = model.Id,
-                Name = model.Name,
-                CategoryId = model.CategoryId,
-                Description = model.Description,
-                Discount = model.Discount,
-                ImageUrl = model.ImageUrl,
-                Price = model.Price,
-                InStock = model.InStock
-            };
+            //var entity = new Product()
+            //{
+            //    Id = model.Id,
+            //    Name = model.Name,
+            //    CategoryId = model.CategoryId,
+            //    Description = model.Description,
+            //    Discount = model.Discount,
+            //    ImageUrl = model.ImageUrl,
+            //    Price = model.Price,
+            //    InStock = model.InStock
+            //};
 
-            ctx.Products.Update(entity);
+            ctx.Products.Update(mapper.Map<Product>(model));
             ctx.SaveChanges();
         }
 
