@@ -4,6 +4,7 @@ using BusinessLogic.Dtos;
 using BusinessLogic.Interfaces;
 using DataAccess.Data;
 using DataAccess.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,7 +71,7 @@ namespace BusinessLogic.Services
 
         public List<ProductDto> Get()
         {
-            var items = ctx.Products.ToList();
+            var items = ctx.Products.Include(x => x.Category).ToList();
             return mapper.Map<List<ProductDto>>(items);
         }
 
