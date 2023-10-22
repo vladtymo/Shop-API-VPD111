@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogic.ApiModels;
+using BusinessLogic.Dtos;
 using BusinessLogic.Interfaces;
 using DataAccess.Data;
 using DataAccess.Data.Entities;
@@ -67,19 +68,19 @@ namespace BusinessLogic.Services
             ctx.SaveChanges();
         }
 
-        public List<Product> Get()
+        public List<ProductDto> Get()
         {
             var items = ctx.Products.ToList();
-            return items;
+            return mapper.Map<List<ProductDto>>(items);
         }
 
-        public Product? Get(int id)
+        public ProductDto? Get(int id)
         {
             var item = ctx.Products.Find(id);
 
             if (item == null) return null;
 
-            return item;
+            return mapper.Map<ProductDto>(item);
         }
     }
 }
