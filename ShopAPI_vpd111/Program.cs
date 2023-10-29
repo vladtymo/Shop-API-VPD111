@@ -1,6 +1,8 @@
 using BusinessLogic.Interfaces;
 using BusinessLogic.Services;
 using DataAccess.Data;
+using DataAccess.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ShopAPI_vpd111.Middlewares;
 
@@ -13,6 +15,10 @@ string connStr = builder.Configuration.GetConnectionString("LocalDb")!;
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<Shop111DbContext>(opts => opts.UseSqlServer(connStr));
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<Shop111DbContext>()
+    .AddDefaultTokenProviders();
+
 // configure custom services
 builder.Services.AddScoped<IProductsService, ProductsService>();
 // configure AutoMapper

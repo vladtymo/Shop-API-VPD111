@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Data.Entities
 {
-    //public class User : IdentityUser
-    //{
-    //    public DateTime Birthdate { get; set; }
-    //    public ICollection<Order> Orders { get; set; }
+    public class User : IdentityUser
+    {
+        public DateTime Birthdate { get; set; }
+        //public ICollection<Order> Orders { get; set; }
 
-    //    // ... additional properties ...
-    //}
+        // ... additional properties ...
+    }
 }
