@@ -21,6 +21,7 @@ builder.Services.AddIdentity<User, IdentityRole>()
 
 // configure custom services
 builder.Services.AddScoped<IProductsService, ProductsService>();
+builder.Services.AddScoped<IAccountsService, AccountsService>();
 // configure AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
