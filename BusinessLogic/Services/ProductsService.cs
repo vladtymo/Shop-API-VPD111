@@ -5,6 +5,7 @@ using BusinessLogic.Exceptions;
 using BusinessLogic.Interfaces;
 using DataAccess.Data;
 using DataAccess.Data.Entities;
+using DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,14 @@ namespace BusinessLogic.Services
 {
     public class ProductsService : IProductsService
     {
-        private readonly Shop111DbContext ctx;
+        //private readonly Shop111DbContext ctx;
+        private readonly IRepository<Product> productsRepo;
+
         private readonly IMapper mapper;
 
-        public ProductsService(Shop111DbContext ctx, IMapper mapper)
+        public ProductsService(IRepository<Product> productsRepo, IMapper mapper)
         {
-            this.ctx = ctx;
+            this.productsRepo = productsRepo;
             this.mapper = mapper;
         }
 
@@ -39,18 +42,18 @@ namespace BusinessLogic.Services
             //    InStock = model.InStock
             //};
 
-            ctx.Products.Add(mapper.Map<Product>(model));
-            ctx.SaveChanges();
+            productsRepo.Insert(mapper.Map<Product>(model));
+            productsRepo.Save();
         }
 
         public void Delete(int id)
         {
-            var item = ctx.Products.Find(id);
+            var item = productsRepo.GetByID(id);
 
             if (item == null) throw new HttpException("Invalid product ID.", HttpStatusCode.NotFound); // 404
 
-            ctx.Products.Remove(item);
-            ctx.SaveChanges();
+            productsRepo.Delete(item);
+            productsRepo.Save();
         }
 
         public void Edit(EditProductModel model)
@@ -67,19 +70,19 @@ namespace BusinessLogic.Services
             //    InStock = model.InStock
             //};
 
-            ctx.Products.Update(mapper.Map<Product>(model));
-            ctx.SaveChanges();
+            productsRepo.Update(mapper.Map<Product>(model));
+            productsRepo.Save();
         }
 
         public List<ProductDto> Get()
         {
-            var items = ctx.Products.Include(x => x.Category).ToList();
+            var items = productsRepo.Get(includeProperties: "Category");
             return mapper.Map<List<ProductDto>>(items);
         }
 
         public ProductDto? Get(int id)
         {
-            var item = ctx.Products.Find(id);
+            var item = productsRepo.GetByID(id);
 
             if (item == null) throw new HttpException("Invalid product ID.", HttpStatusCode.NotFound);
 
