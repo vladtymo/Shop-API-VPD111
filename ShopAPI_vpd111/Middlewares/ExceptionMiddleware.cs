@@ -1,9 +1,6 @@
 ﻿using BusinessLogic.ApiModels;
 using BusinessLogic.Exceptions;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace ShopAPI_vpd111.Middlewares
 {

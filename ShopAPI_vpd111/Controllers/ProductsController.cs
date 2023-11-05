@@ -1,9 +1,6 @@
 ﻿using BusinessLogic.ApiModels;
 using BusinessLogic.Interfaces;
-using DataAccess.Data;
-using DataAccess.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ShopAPI_vpd111.Controllers
