@@ -18,6 +18,7 @@ namespace ShopAPI_vpd111.Controllers
             this.service = service;
         }
 
+        [Authorize]
         [HttpGet("all")]
         public IActionResult Get()
         {
